@@ -2,15 +2,15 @@
 
 ## A. 建立 express --no-view 專案
 ### 1. 建立環境
-   `cd 資料夾`
-   `express --no-view 專案名稱`
-   `cd 專案名稱`
-   `npm install`
-   `npm start`
+   - cd 資料夾
+   - express --no-view 專案名稱
+   - cd 專案名稱
+   - npm install
+   - npm start
 ---
 ### 2. 安裝套件
-   `npm install mongoose`
-   `npm install cors`
+   - npm install mongoose
+   - npm install cors
 ---
 ### 3. 編輯 app.js
    1. 載入 **cors**
@@ -23,7 +23,13 @@
       .then(() => console.log('資料庫連接成功'));
       .catch((err) => console.log(err.reason, "資料庫連線失敗"))`
 ---
-### 4. 新增 posts 路由、新增 postsModels.js
+### 4. 連線至 mongoDB 本地端資料庫
+   1. mongod
+      `mongod --dbpath data 資料夾路徑--logpath mongo.log 資料夾路徑`
+   2. mongosh
+      `mongosh`
+---
+### 5. 新增 posts 路由、新增 postsModels.js
    1. 新增 **../models/postsModels.js**
       - 匯入 mongoose
       - 使用 mongoose.Schema 建立 postSchema
@@ -64,14 +70,8 @@
            - router.option("/", ...)
            - 200
 ---
-### 5. 從 Node.js 連線至 mongoDB 本地端資料庫
-   1. mongod
-      `mongod --dbpath data 資料夾路徑--logpath mongo.log 資料夾路徑`
-   2. mongosh
-      `mongosh`
----
----
-## B. 改成連線至 mongoDB 遠端資料庫
+
+## B. 改連線至 mongoDB 遠端資料庫
 ### 1. 安裝 dotenv
    1. `npm install dotenv`
    2. 建立 **config.env**
@@ -87,14 +87,14 @@
       );
 ---
 ### 2. 連線至 mongoDB 遠端資料庫
-      - mongoose.connect(DB)
+   - mongoose.connect(DB)
 ---
 
 ## C. 將 Node web server 部屬至 Render 主機
 ### 1. 建立 .gitignore
       `
          *.env
-         node_modules
+         node_modules/
          .DS_Store
       `
 ### 2. git init、git add .、git status
@@ -107,14 +107,9 @@
    2. Build Command
       `$npm install`
    3. Start Command
-      `$node server.js`
-   4. package.json 的 "script" 新增屬性 "start"
-      `
-      "scripts": {
-         "start": "node server.js"
-      },
-      `
-   5. 加入環境變數
+      `$npm start`
+   4. 加入環境變數
       - add from .env
       - 貼上 config.env
       - 本地端 PORT 號不用加入
+   5. 上傳 postman collection
