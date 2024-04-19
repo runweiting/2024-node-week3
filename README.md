@@ -43,9 +43,9 @@
              - 200
          2. **404**
            - 在所有路由之後，處理 404
-            `
-             app.use((req, res, next) => { res.status(404).send("Sorry, the page you're looking for doesn't exist.")})
-            `
+           - `
+           app.use((req, res, next) => { res.status(404).send("Sorry, the page you're looking for doesn't exist.")})
+           `
          3. **POST**
            - router.post("/", ...)
              - try {...} catch (err) {...}
