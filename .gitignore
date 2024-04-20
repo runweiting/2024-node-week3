@@ -1,5 +1,5 @@
 # 排除真實的 .env 檔案
-.env
+config.env
 
 # 排除 node_modules 目錄
 node_modules/
