@@ -6,28 +6,19 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 // 載入 morgan 中間件，記錄 HTTP 請求的日誌
 var logger = require("morgan");
-// 載入 mongoose
-const mongoose = require("mongoose");
 // 載入 express cors
 const cors = require("cors");
-// 載入 dotenv
-const dotenv = require("dotenv");
-
-dotenv.config({ path: "./config.env" });
-const DB = process.env.DATABASE.replace(
-  "<password>",
-  process.env.DATABASE_PASSWORD
-);
-mongoose.connect(DB).then((res) => console.log("mongoDB 本地端資料庫連線成功"));
-
 // 載入 indexRouter 路由模組，定義 app.js 的根路由
+
+// router
 var indexRouter = require("./routes/index");
-// 載入 usersRouter 路由模組，定義 app.js 的用戶路由
 var usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
 
-// 建立 Express 實例，將其賦值給變數 app
+// express
 var app = express();
+require("./connections");
+
 app.use(cors());
 // 使用 morgan 中間件，將日誌記錄到控制台，格式為 'dev'
 app.use(logger("dev"));
