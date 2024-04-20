@@ -1,3 +1,8 @@
-*.env
+# 排除真實的 .env 檔案
+.env
+
+# 排除 node_modules 目錄
 node_modules/
+
+# 排除 macOS 的 .DS_Store 檔案
 .DS_Store

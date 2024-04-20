@@ -60,11 +60,10 @@
    3. routes/posts
       - 匯入 ../controllers/posts
       - 在 router.method("路徑", 各種 Controllers 方法)
+   4. 修正 handleError, handleSuccess
 ---
 
-## C. 將 Node web server 部屬至 Render 主機
-
-### 前往 Render 建立 Web Service
+## C. 前往 Render 建立 Web Service
    1. build and deploy from a Git repo
    2. Build Command
       `$npm install`
