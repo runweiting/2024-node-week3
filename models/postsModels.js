@@ -19,7 +19,11 @@ const postSchema = new mongoose.Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now(),
+      // Date.now 和 Date.now() 的差異？
+      // Date.now 以 schema 被定義的時間戳記作為預設值
+      // Date.now() 立即執行函數，以每次創建一個新文檔時的時間
+      default: Date.now,
+      select: false,
     },
   },
   {
