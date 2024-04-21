@@ -1,6 +1,6 @@
 const handleError = require("../service/handleError");
 const handleSuccess = require("../service/handleSuccess");
-const Post = require("../models/postsModels");
+const Post = require("../models/postsModel");
 
 const posts = {
   async getPosts(req, res) {
