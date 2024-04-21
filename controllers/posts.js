@@ -12,7 +12,7 @@ const posts = {
       const { body } = req;
       if (body.content) {
         const newPost = await Post.create({
-          user: body.name,
+          user: body.user,
           content: body.content,
           tags: body.tags,
           type: body.type,
