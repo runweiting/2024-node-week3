@@ -1,13 +1,13 @@
 const handleError = require("../service/handleError");
 const handleSuccess = require("../service/handleSuccess");
 const Post = require("../models/postsModel");
-const User = require("../models/usersModel");
+// const User = require("../models/usersModel");
 
 const posts = {
   async getPosts(req, res) {
     const posts = await Post.find().populate({
       path: "user",
-      select: "name photo",
+      select: "name image",
     });
     handleSuccess(res, posts, 200);
   },
