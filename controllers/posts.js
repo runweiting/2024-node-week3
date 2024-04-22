@@ -5,10 +5,20 @@ const User = require("../models/usersModel");
 
 const posts = {
   async getPosts(req, res) {
-    const posts = await Post.find().populate({
-      path: "user",
-      select: "name image",
-    });
+    // 貼文時間排序
+    // asc 遞增(由小到大，由舊到新) createdAt
+    // desc 遞減(由大到小、由新到舊) "-createdAt"
+    const timeSort = req.query.timeSort == "asc" ? "createdAt" : "-createdAt";
+    // 貼文關鍵字搜尋
+    const q =
+      req.query.q !== undefined ? { content: new RegExp(req.query.q) } : {};
+    const posts = await Post.find(q)
+      .populate({
+        // user 欄位要帶入 usersModel 的 name, image
+        path: "user",
+        select: "name image",
+      })
+      .sort(timeSort);
     handleSuccess(res, posts, 200);
   },
   async createdPost(req, res) {
