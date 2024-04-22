@@ -21,8 +21,8 @@ const postSchema = new mongoose.Schema(
     createdAt: {
       type: Date,
       // Date.now 和 Date.now() 的差異？
-      // Date.now 以 schema 被定義的時間戳記作為預設值
-      // Date.now() 立即執行函數，以每次創建一個新文檔時的時間
+      // Date.now 新增貼文時，時間戳為當下時間，select 為 false 查詢不會返回此欄位，表示此時間戳在建立後不會再被修改
+      // Date.now() 在每次修改時，時間戳都為當下時間
       default: Date.now,
       select: false,
     },
