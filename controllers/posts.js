@@ -40,15 +40,25 @@ const posts = {
   },
   async updatedPost(req, res) {
     try {
+      const { body } = req;
       const id = req.params.id;
       // 手動檢查必填欄位
-      if (!data.user || !data.content) {
+      if (!body.user || !body.content) {
         throw new Error("姓名及內容為必填");
       }
-      const updatePost = await Post.findByIdAndUpdate(id, req.body, {
-        new: true,
-        runValidators: true,
-      });
+      const updatePost = await Post.findByIdAndUpdate(
+        id,
+        {
+          user: body.user,
+          content: body.content.trim(),
+          image: body.image,
+          likes: body.likes,
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
       if (updatePost !== null) {
         handleSuccess(res, "更新成功", updatePost);
       } else {
