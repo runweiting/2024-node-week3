@@ -8,7 +8,7 @@ function handleSuccess(res, message, post = null) {
   if (post) {
     data.post = post;
   }
-  res.writeHead(200, headers);
+  res.writeHead(200);
   res.write(JSON.stringify(data));
   res.end();
 }
@@ -18,7 +18,7 @@ function handleError(res, message, statusCode = 400) {
     status: "failed",
     message,
   };
-  res.writeHead(statusCode, headers);
+  res.writeHead(statusCode);
   res.write(JSON.stringify(data));
   res.end();
 }
