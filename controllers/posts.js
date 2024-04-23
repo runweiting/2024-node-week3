@@ -68,9 +68,13 @@ const posts = {
       handleError(res, "查無此貼文 id");
     }
   },
-  async deletePosts(res) {
-    await Post.deleteMany({});
-    handleSuccess(res, "全部刪除成功");
+  async deletePosts(req, res) {
+    try {
+      await Post.deleteMany({});
+      handleSuccess(res, "全部刪除成功");
+    } catch (err) {
+      handleError(res, err.message);
+    }
   },
   async deletePost(req, res) {
     try {
