@@ -55,7 +55,7 @@ const posts = {
         throw new Error("查無此貼文 id");
       }
     } catch (err) {
-      handleError(res, "查無此貼文 id");
+      handleError(res, err.message);
     }
   },
   async deletePosts(res) {
@@ -72,7 +72,7 @@ const posts = {
         throw new Error("查無此貼文 id");
       }
     } catch (err) {
-      handleError(err, "查無此貼文 id");
+      handleError(res, err.message);
     }
   },
 };
