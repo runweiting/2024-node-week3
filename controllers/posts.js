@@ -78,12 +78,17 @@ const posts = {
   },
   async deletePost(req, res) {
     try {
-      const id = req.params.id;
-      const deletePost = await Post.findByIdAndDelete(id);
-      if (deletePost !== null) {
-        handleSuccess(res, "刪除成功", deletePost);
+      const route = req.originalUrl.split("?")[0];
+      if (route == "/posts/") {
+        throw new Error("請提供正確的貼文 id");
       } else {
-        throw new Error("查無此貼文 id");
+        const id = req.params.id;
+        const deletePost = await Post.findByIdAndDelete(id);
+        if (deletePost !== null) {
+          handleSuccess(res, "刪除成功", deletePost);
+        } else {
+          throw new Error("查無此貼文 id");
+        }
       }
     } catch {
       handleError(res, "查無此貼文 id");
