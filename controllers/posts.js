@@ -70,25 +70,25 @@ const posts = {
   },
   async deletePosts(req, res) {
     try {
-      await Post.deleteMany({});
-      handleSuccess(res, "全部刪除成功");
+      const route = req.originalUrl.split("?")[0];
+      if (route === "/post/") {
+        throw new Error("請提供正確的貼文 id");
+      } else {
+        await Post.deleteMany({});
+        handleSuccess(res, "全部刪除成功");
+      }
     } catch (err) {
       handleError(res, err.message);
     }
   },
   async deletePost(req, res) {
     try {
-      const route = req.originalUrl.split("?")[0];
-      if (route == "/posts/") {
-        throw new Error("請提供正確的貼文 id");
+      const id = req.params.id;
+      const deletePost = await Post.findByIdAndDelete(id);
+      if (deletePost !== null) {
+        handleSuccess(res, "刪除成功", deletePost);
       } else {
-        const id = req.params.id;
-        const deletePost = await Post.findByIdAndDelete(id);
-        if (deletePost !== null) {
-          handleSuccess(res, "刪除成功", deletePost);
-        } else {
-          throw new Error("查無此貼文 id");
-        }
+        throw new Error("查無此貼文 id");
       }
     } catch {
       handleError(res, "查無此貼文 id");
