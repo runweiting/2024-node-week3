@@ -71,7 +71,7 @@ const posts = {
   async deletePosts(req, res) {
     try {
       const route = req.originalUrl.split("?")[0];
-      if (route === "/post/") {
+      if (route === "/posts/") {
         throw new Error("請提供正確的貼文 id");
       } else {
         await Post.deleteMany({});
