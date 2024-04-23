@@ -42,7 +42,7 @@ const posts = {
     try {
       const id = req.params.id;
       // 手動檢查必填欄位
-      if (!data.name || !data.content) {
+      if (!data.user || !data.content) {
         throw new Error("姓名及內容為必填");
       }
       const updatePost = await Post.findByIdAndUpdate(id, req.body, {
