@@ -69,8 +69,8 @@ const posts = {
     }
   },
   async deletePosts(res) {
-    const posts = await Post.deleteMany({});
-    handleSuccess(res, "全部刪除成功", posts);
+    await Post.deleteMany({});
+    handleSuccess(res, "全部刪除成功");
   },
   async deletePost(req, res) {
     try {
