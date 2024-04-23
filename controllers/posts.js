@@ -1,5 +1,4 @@
-const handleError = require("../service/handleError");
-const handleSuccess = require("../service/handleSuccess");
+const { handleError, handleSuccess } = require("../service/handler");
 const Post = require("../models/postsModel");
 const User = require("../models/usersModel");
 
@@ -19,57 +18,61 @@ const posts = {
         select: "name image",
       })
       .sort(timeSort);
-    handleSuccess(res, posts, 200);
+    handleSuccess(res, "查詢成功", posts);
   },
   async createdPost(req, res) {
     try {
       const { body } = req;
-      if (body.content) {
-        const newPost = await Post.create({
-          user: body.user,
-          content: body.content,
-          tags: body.tags,
-          type: body.type,
-        });
-        handleSuccess(res, newPost, 201);
+      // 手動檢查必填欄位
+      if (!body.user || !body.content) {
+        throw new Error("姓名及內容為必填");
       }
+      const newPost = await Post.create({
+        user: body.user,
+        content: body.content.trim(),
+        tags: body.tags,
+        type: body.type,
+      });
+      handleSuccess(res, "新增成功", newPost);
     } catch (err) {
-      handleError(res, err);
+      handleError(res, err.message);
     }
   },
   async updatedPost(req, res) {
     try {
       const id = req.params.id;
+      // 手動檢查必填欄位
+      if (!data.name || !data.content) {
+        throw new Error("姓名及內容為必填");
+      }
       const updatePost = await Post.findByIdAndUpdate(id, req.body, {
         new: true,
+        runValidators: true,
       });
-      handleSuccess(res, updatePost, 200);
+      if (updatePost !== null) {
+        handleSuccess(res, "更新成功", updatePost);
+      } else {
+        throw new Error("查無此貼文 id");
+      }
     } catch (err) {
-      handleError(res, err);
+      handleError(res, "查無此貼文 id");
     }
   },
-  async deletePosts(req, res) {
-    try {
-      await Post.deleteMany({});
-      res
-        .status(200)
-        .send({
-          status: "success",
-          message: "全部貼文已成功刪除",
-        })
-        .end();
-    } catch (err) {
-      handleError(res, err);
-    }
+  async deletePosts(res) {
+    const posts = await Post.deleteMany({});
+    handleSuccess(res, "全部刪除成功", posts);
   },
   async deletePost(req, res) {
     try {
       const id = req.params.id;
-      await Post.findByIdAndDelete(id);
-      const posts = await Post.find();
-      handleSuccess(res, posts, 200);
+      const deletePost = await Post.findByIdAndDelete(id);
+      if (deletePost !== null) {
+        handleSuccess(res, "刪除成功", deletePost);
+      } else {
+        throw new Error("查無此貼文 id");
+      }
     } catch (err) {
-      handleError(err);
+      handleError(err, "查無此貼文 id");
     }
   },
 };
