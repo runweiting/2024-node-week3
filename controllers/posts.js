@@ -30,8 +30,8 @@ const posts = {
       const newPost = await Post.create({
         user: body.user,
         content: body.content.trim(),
-        tags: body.tags,
-        type: body.type,
+        image: body.image,
+        likes: body.likes,
       });
       handleSuccess(res, "新增成功", newPost);
     } catch (err) {
