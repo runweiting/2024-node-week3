@@ -54,8 +54,8 @@ const posts = {
       } else {
         throw new Error("查無此貼文 id");
       }
-    } catch (err) {
-      handleError(res, err.message);
+    } catch {
+      handleError(res, "查無此貼文 id");
     }
   },
   async deletePosts(res) {
@@ -71,8 +71,8 @@ const posts = {
       } else {
         throw new Error("查無此貼文 id");
       }
-    } catch (err) {
-      handleError(res, err.message);
+    } catch {
+      handleError(res, "查無此貼文 id");
     }
   },
 };
