@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-const PostsControllers = require("../controllers/posts");
 
 // GET 取得全部
 router.get("/", PostsControllers.getPosts);
